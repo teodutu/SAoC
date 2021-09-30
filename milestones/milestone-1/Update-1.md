@@ -17,5 +17,5 @@ We skipped lowering in expressionsem.d for snippets like `S[3] arr = [S(1), S(2)
 For example, runnable/testassign.d fails because in expressions like `funcVal(a = b)` the temporary variable used as the actual argument for `funcVal` is not lowered to use `_d_arraysetctor`, when it actually should.
 I am still working on fixing it.
 
-Thanks,
+Thanks,\
 Teodor
