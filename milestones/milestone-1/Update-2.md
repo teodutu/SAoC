@@ -5,7 +5,6 @@ Hi,
 This week I finished patching Dan's previous work on the `_d_arrayctor` and `_d_arraysetctor` hooks.
 There was no need for a PR to druntime, as the existing code was working fine.
 The PR to DMD is [here](https://github.com/dlang/dmd/pull/13116).
-There was no need for an additional PR to druntime.
 
 I've also started working on the `_d_arrayappendT` and `_d_arrayappendcTX` hooks.
 As usual, my starting point is [this PR](https://github.com/dlang/dmd/pull/9982) form Dan.
