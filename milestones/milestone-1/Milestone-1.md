@@ -1,6 +1,6 @@
 # [SAoC 2021] Replace druntime Hooks with Templates: Milestone 1 Report
 This project aims to replace DMD hooks to druntime with template lowerings, as described [here](https://github.com/dlang/projects/issues/25).
-Of partiuclar importance is the work of Dan Printzell ([Vild](https://github.com/Vild/)), which this project aims to complete.
+Of particular importance is the work of Dan Printzell ([Vild](https://github.com/Vild/)), which this project aims to complete.
 [This comment](https://github.com/dlang/projects/issues/25#issuecomment-591866063) outlines the basic workflow that is necessary in order to convert a hook to a template function.
 
 ## Week 1
@@ -25,7 +25,11 @@ My mentor Edi [suggested](https://github.com/dlang/druntime/pull/3582#discussion
 So I went on and [implemented Edi's suggestion](https://github.com/dlang/druntime/pull/3583).
 
 During this week, however, my mentors and I realised that the strong purity that enforced to `_d_arrayctor` was stabbing us in the back in cases where the function was instantiated on `const` or `immutable` types.
-In a snippet like the one below, `S[2] b = a;` is lowered to `_d_arrayctor`.
+In a snippet like the one below, `immutable int[2] b = a;` is lowered to `_d_arrayctor(b, a)`.
+```d
+immutable int[2] a;
+immutable int[2] b = a;
+```
 But its return value is ignored and, being a pure function, the compiler believes the call to it has no effect and thus issues warnings (which is why the DMD PR above failed the phobos tests).
 It might also be inclined to remove this call altogether, which might be disastrous.
 
