@@ -32,3 +32,6 @@ We're still unsure how to proceed about those.
 
 Next week, my mentors and I will explore this new approach to `_d_arrayctor` further and I'll proceed to implement it once all questions have been answered.
 In addition, I will try to finish adding CTFE support for `_d_arrayappendcTX` and then move on to fixing the other failing tests.
+
+Thanks,\
+Teodor
