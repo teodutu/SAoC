@@ -40,12 +40,12 @@ Since this workaround is, in essence, a hack, I asked [this question](https://fo
 In addition, the failure of [this test](https://github.com/dlang/druntime/blob/b8f47bcb00435fb11a206bb5356f0bafb570641f/src/core/internal/postblit.d#L273) revealed an old bug in the compiler's backend whereby the optimiser did not take `try / catch` blocks into account when eliminating variables during optimisation.
 I [filed an issue](https://issues.dlang.org/show_bug.cgi?id=22372) and wrote a [forum post](https://forum.dlang.org/post/tfovzyyscbuimlthpeci@forum.dlang.org) about this topic, which led to the bug being fixed.
 
-I am currently trying a different approach to fixing the aforementioned warnings issued by the compiler for some calls to `_d_arrayctor`.
-This approach is to refactor `_d_arrayctor` to use two template types instead of one:
+I also tried a different approach to fixing the aforementioned warnings issued by the compiler for some calls to `_d_arrayctor`.
+This approach was to refactor `_d_arrayctor` to use two template types instead of one:
 ```d
 Tarr1 _d_arrayctor(Tarr1 : T1[], T1, Tarr2 : T2[], T2)(return scope Tarr1 to, scope Tarr2 from)
 ```
-This new signature still produces some instantiation errors, which I'm investigating.
+This approach turned out to be useless, because, if `T1` and `T2` are of the same `const` or `immutable` type, the issue regarding the function's purity remains.
 
 ## Milestone 2
 During the next milestone, I will:
