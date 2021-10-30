@@ -12,7 +12,9 @@ Moreover, during the inline phase, this conditional expression is replaced with 
 This also passes the `a ~= b` branch to be backend, which triggered [this asert](https://github.com/dlang/dmd/blob/a890f134af71c553d74ea346650cdea1d2e5f0ad/src/dmd/e2ir.d#L3297)
 So the solution was to remove the `if` body and only keep the `else` body in s2ir.d.
 
-TODO: `_d_arrayctor`
+In the meantime, I've also been working on changing `_d_arrayctor`'s so that it returns the newly created array instead of receiving it as a parameter.
+I've made some progress, but my current implementation allocates the new array dynamically.
+Thus, it doesn't make use of NRVO yet and the returned array has to be copied back to its intended destination.
 
 Thanks,
 Teodor
