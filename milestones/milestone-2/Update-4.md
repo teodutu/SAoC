@@ -9,8 +9,8 @@ Because expressions such as `T[4] a = b` were lowered to `_d_arrayctor(a[], b[])
 This made the compiler issue some warnings, while also running the risk of having the compiler remove the call to `_d_arrayctor` altogether. 
 
 Next, I changed the aforementioned lowering to `a = _d_arrayctor(!typeof(a))(b[])`.
-This worked, except for [this test](), where I noticed that the compiler inserts a `catch` block at the end of `_d_arrayctor`.
-This block catcher the exception thrown [here](), calls `__ArrayDtor` on `to` and then re-throws the exception.
+This worked, except for [this test](https://cirrus-ci.com/task/4617199160655872?logs=test_druntime#L1548), where I noticed that the compiler inserts a `catch` block at the end of `_d_arrayctor`.
+This block catches the exception thrown [here](https://github.com/dlang/druntime/blob/1a2f2158345ece9fc3eec098a55519644bf6dfd0/src/core/internal/array/construction.d#L73), calls `__ArrayDtor` on `to` and then re-throws the exception.
 But the first elements of the array have already been destroyed by `_d_arrayctor` itself.
 This creates something like a double free error.
 In addition, `__ArrayDtor` calls the dtor of each element, including the final ones, which have not been initialised.
