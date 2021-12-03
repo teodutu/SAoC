@@ -17,7 +17,7 @@ The reason is that the lowering of `a ~= x` is actually this:
 ```d
 __ctfe ? a ~= x : _d_arrayappendcTX(a, 1), a[$ - 1] = x, a;
 ```
-Because `a` is used literally, as an expression, in case it's something more complex, such as, in this case, `a ~= 1`, the concatenation is made each time `a` appears in the second term of the condtional statement.
+Because `a` is used literally, as an expression, in case it's something more complex, such as, in this case, `a ~= 1`, the concatenation is made each time `a` appears in the second term of the conditional statement.
 I am now trying to solve the error by saving the result of `a` in a temporary variable, in case it's not a regular array.
 
 Thanks,\
