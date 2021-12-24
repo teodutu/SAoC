@@ -21,5 +21,5 @@ I started working on `_d_newThrowable`, but I'm having trouble recreating [these
 
 Merry Christmas!
 
-Thanks,
+Thanks,\
 Teodor
