@@ -9,6 +9,7 @@ I'm still working on the latter steps of the lowering.
 At the same time, I started looking at `_d_arraycatnTX`, starting from Dan Printzell's work:
 - https://github.com/dlang/dmd/pull/10064
 - https://github.com/dlang/druntime/pull/2648/
+
 However, Dan's templated hook is actually just a wrapper that calls the old hook.
 This makes both the hook itself and the lowering difficult to maintain and inefficient, because of the 2D-array that's created by the compiler before being linearised.
 Thus, after I've decided to reimplement `_d_arraycatnTX` to use variadic templates instead of the 2D-array trick.
