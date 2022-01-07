@@ -8,7 +8,7 @@ The PRs for these are:
 - https://github.com/dlang/dmd/pull/13494
 
 Also this week, I fixed the bug when compiling the new lowering for `a ~= b` to either `_d_arrayappendcTX` or `_d_arrayappendT`.
-It turned out it was becaus of how `$` is evaluated by the compiler.
+It turned out it was because of how `$` is evaluated by the compiler.
 The initial lowering when `b` was a single element looked like this:
 ```d
 __ctfe ? a ~= b : _d_arrayappendcTX(a, 1), a[$ - 1] = b, a;
