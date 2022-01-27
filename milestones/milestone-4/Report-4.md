@@ -29,7 +29,7 @@ Therefore, the templated `_d_newThrowable` still returned a `Throwable` object w
 
 For this reason, `new E(args)` was lowered similarly to `a ~= b`:
 ```d
-__ctfe ? new E(args) : tmp = _d_newThrowable!E(), (cast(T) tmp).__ctor(args), cast(T) tmp;
+__ctfe ? new E(args) : tmp = _d_newThrowable!E(), (cast(E) tmp).__ctor(args), cast(E) tmp;
 ```
 
 In parallel, I started working on `_d_arraycatnTX`.
@@ -71,20 +71,21 @@ This gave me a false sense of certainty at the beginning of the project.
 DMD looked similar to what I already knew about compilers, but when I had to actually make changes to it and then debug my changes, it proved to be something entirely different.
 At this point I realised how little I actually knew about compilers (basically the downwards slope of the Dunning–Kruger effect).
 
-Then my mentors TODO: mi-au explicat ce si cum. sa-i ling in cur.
+At this point my mentors I had the chance to learn about DMD's inner workings from my mentors who taught me a lot about the compiler's internal flow.
+They also introduced me to the D community, encouraging me to write forum posts and take part in the subsequent discussions when we couldn't find solutions for problems ourselves or when we were uncertain about our approach and wanted to hear some other opinions.
 
 So one of my main takeaways from SAoC 2021 has to be code literacy.
 I feel I am much more capable of diving into a large codebase and making sense of what's going on there than I was previously.
 
-TODO: technical stuff: NRVO, CTFE, purity, gc
+On the technical side, I became a lot more knowledgeable about some more advanced topics regarding compilers, such as NRVO and CTFE, as well as some related subjects, like garbage collection and function purity.
 
 ### Overcoming Problems
-- too optimistic regarding my progress: planning vs reality
+- TODO: too optimistic regarding my progress: planning vs reality
 
 ### Plans for the Future
 I am a first year MSc student and replacing druntime hooks with templates is part of my dissertation project.
 It aims to allow D applications to run on microcontrollers.
-Currently you can do this by compiling them with `-betterC`, but this strips much of the features that make D cool from your program.
+Currently you can do this by compiling them with `-betterC`, but this strips much of the D's features, such as classes, garbage collection and array concatenation.
 
 This is where my project comes in.
 By converting DRuntime (or as much of it as possible) to templates, it wouldn't have to be statically linked against every D executable and would become a template library, somewhat similar to C++'s header-only libraries.
@@ -95,10 +96,9 @@ Then I will pick up where I left the loweing to `_d_arraycatnTX`.
 Some hooks like `_d_newclass` and `_d_newitem{U,iT,T}` are likely to be very similar to `_d_newThrowable`, while others like `_d_arrayassign{,_l,_r}` will resemble `_d_arrayctor`.
 
 I believe I have learned enough by now to be able to move faster with the next hooks.
-But first, finals are coming :( (TODO).
 
 ## Weekly Forum Posts
 - [Week 1](https://forum.dlang.org/post/npzmxavjervvgujhkbxv@forum.dlang.org)
 - [Week 2](https://forum.dlang.org/post/npkacnzbfkbmvpnoivoh@forum.dlang.org)
 - [Week 3](https://forum.dlang.org/post/flwjoxilxfpvdjheehdg@forum.dlang.org)
-- [Week 4](https://forum.dlang.org/thread/bdtnuozkxvroqkcxbkfq@forum.dlang.org)
+- [Week 4](https://forum.dlang.org/post/bdtnuozkxvroqkcxbkfq@forum.dlang.org)
