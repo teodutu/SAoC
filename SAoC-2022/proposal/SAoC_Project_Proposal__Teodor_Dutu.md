@@ -10,9 +10,9 @@ This has the following disadvantages:
 Thus, when linking the library statically, all DRuntime functions are present in the resulting executables.
 This makes it difficult to deploy such apps on low memory platforms, such as microcontrollers, because the size of `libdruntime.a` is approximately 16 MB on a 64 bit Linux system.
 - The current mechanism is using the `TypeInfo` class hierarchy to pass runtime information to DRuntime functions.
-The TypeInfo hierarchy is implemented using classes, therefore it has the following shortcomings:
+The `TypeInfo` hierarchy is implemented using classes, therefore it has the following shortcomings:
     - slow dynamic dispatch when choosing what override to call at runtime;
-    - the GC is required to manage the TypeInfo classes.
+    - the GC is required to manage the `TypeInfo` classes.
 - Currently, runtime hooks are inserted at the IR level of the compiler passes, which is a difficult and hard to understand component of the compiler.
 - In addition, no function attributes can be inferred for hooks and array arguments are `void[]` or `byte[]` instead of their actual types, which is unsafe.
 
