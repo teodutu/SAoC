@@ -1,7 +1,7 @@
 # Replace `druntime` Hooks with Templates - Planning
 
 The functions that will have to be replaced are listed here:
-```bash
+```
 druntime $ egrep -o -R "_d_.*\(.*[^;]$" src/ | egrep "(Type|Class)Info" | egrep -v '`' | cut -d ':' -f 2 | cut -d '(' -f 1 | sort -u
 _d_arrayappendcTX
 _d_arraycatnTX
@@ -28,10 +28,6 @@ _d_newitemT
 _d_newitemU
 ```
 
-
-
-
-
 There are 23 non-template hooks.
 They can be grouped according to functionality.
 This makes it easier to convert them to templates.
@@ -41,8 +37,8 @@ Some can be converted to the same template, thus reducing the both codebase and 
 |:----------------------------------------:|:----------------------------------------------------------------------------------------------------------------------------:|
 | Array concatenation (`a ~ b`)            | `_d_arraycatT`<br />`_d_arraycatnTX`                                                                                         |
 | `struct` and `class` creation            | `_d_newitemiT`<br />`_d_newitemT`<br />`_d_newitemU`<br />`_d_newclass`                                                      |
-| Heap array creation                      | `_d_newarrayiT`<br />`_d_newarraymiTX`<br />`_d_newarraymTX`<br />`_d_newarrayOpT`<br />`_d_newarrayT`<br />`_d_newarrayU`   |
-| Array / associative array stack creation | `_d_arrayliteralTX`<br />`_d_assocarrayliteralTX`                                                                            |
+| Array creation                      | `_d_newarrayiT`<br />`_d_newarraymiTX`<br />`_d_newarraymTX`<br />`_d_newarrayOpT`<br />`_d_newarrayT`<br />`_d_newarrayU`   |
+| Array / associative array literal creation | `_d_arrayliteralTX`<br />`_d_assocarrayliteralTX`                                                                            |
 | Array (re)allocation                     | `_d_arrayappendcTX`<br />`_d_arraysetcapacity`<br />`_d_arraysetlengthiT`<br />`_d_arraysetlengthT`<br />`_d_arrayshrinkfit` |
 | Checks and casts                         | `_d_dynamic_cast`<br />`_d_interface_cast`<br />`_d_isbaseof`<br />`_d_isbaseof2`                                            |
 
