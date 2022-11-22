@@ -7,7 +7,7 @@ What's most difficult is inserting code to initialise `vthis` and `vthis2` in th
 `e2ir.d` already has machinery for this in place, but moving this logic to the frontend is more tedious than I originally thought.
 
 I did talk to my mentors about this and Razvan suggested we add a new AST node to the frontend to which we delegate copying `vthis`.
-The good thing regarding this approach is that it is going to be cleaner in DMD since it won't requier reinventing the wheel to move handling of context pointers to the frontend.
+The good thing regarding this approach is that it is going to be cleaner in DMD since it won't require reinventing the wheel to move handling of context pointers to the frontend.
 However, this will definitely cause trouble to LDC and GDC as they are going to have to handle this new AST node on their own.
 Thus the lowering will no longer be transparent to the other compilers.
 
