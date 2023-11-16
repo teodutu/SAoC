@@ -11,11 +11,11 @@ The solution was to [inline the lowering](https://github.com/teodutu/dmd/blob/71
 After this, I ran into a familiar error: the lowering needs no codegen at CTFE.
 In fact, the lowering shouldn't even be introduced during semantic if the `CatAssignExp` is only needed at CTFE.
 However, this problem is familiar because I ran into it in the past.
-The same restrictions hold true for `CatExp`s, but because telling if an expression needs codegen or not is a mess during semantic, I couldn't figure out when not to perform the lowering to `_d_arraycatnTX`.
+The same restrictions hold for `CatExp`s, but because telling if an expression needs codegen or not is a mess during semantic, I couldn't figure out when not to perform the lowering to `_d_arraycatnTX`.
 The solution in both cases was to handle this case during IR generation.
 Therefore, unfortunately, both lowerings are made even in some situations when they're not required and then `e2ir.d` checks of using the GC is enabled.
 If not, [it outputs an error](https://github.com/dlang/dmd/blob/3d552df287d0b836861f760701b16569311e4dd7/compiler/src/dmd/e2ir.d#L2796-L2802).
-I'd love to do this in a nicer way in the future and I'm looking for advice on how to figure out when to not generate lowerings during semantic analysis.
+I'd love to do this in more nicely in the future and I'm looking for advice on how to figure out when to not generate lowerings during semantic analysis.
 If you have any advice on the topic, please let me know.
 
 Furthermore, I'm almost done converting `_d_newarray{mTX, miTX, Op}` to a single template.
